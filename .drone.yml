@@ -1,0 +1,22 @@
+kind: pipeline
+name: default
+
+steps:
+- name: tag
+  image: debian:10
+  commands:
+  - apt-get update
+  - apt-get install -y jq curl
+  - curl -s 'https://pypi.org/pypi/matrix-synapse/json' | jq -r '.info.version' > version
+  - echo -n 'latest,v' | cat - version > .tags
+  - echo -n ,build-$DRONE_BUILD_NUMBER >> .tags
+
+- name: docker  
+  image: plugins/docker
+  settings:
+    repo: tlemarchand/matrix-synapse
+    target: app
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
