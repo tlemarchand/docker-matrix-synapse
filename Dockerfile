@@ -17,6 +17,6 @@ USER synapse
 
 VOLUME ["/var/lib/matrix-synapse"]
 
-EXPOSE 8008/tcp 8009/tcp 8448/tcp
+EXPOSE 8008/tcp
 
 CMD ["python","-m","synapse.app.homeserver","--config-path","/etc/matrix-synapse/homeserver.yaml"]
