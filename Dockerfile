@@ -8,7 +8,7 @@ RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all
 FROM python:3.7-slim-buster as app
 
 RUN mkdir /etc/matrix-synapse/
-RUN groupadd -r synapse && useradd --no-log-init -r -g synapse synapse
+RUN groupadd -g 600 -r synapse && useradd --no-log-init -u 600 -r -g synapse synapse
 
 COPY --from=builder /install/ /usr/local/
 COPY log.config /etc/matrix-synapse/
