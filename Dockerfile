@@ -7,9 +7,11 @@ RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all
 
 FROM python:3.7-slim-buster as app
 
-RUN mkdir /etc/matrix-synapse/
-RUN groupadd -g 600 -r synapse && useradd --no-log-init -u 600 -r -g synapse synapse
-
+RUN apt-get update && apt-get install -y libpq5 && \
+    mkdir /etc/matrix-synapse/ && \
+    groupadd -g 600 -r synapse && useradd --no-log-init -u 600 -r -g synapse synapse && \
+    rm -rf /var/lib/apt/lists/*
+ 
 COPY --from=builder /install/ /usr/local/
 COPY log.config /etc/matrix-synapse/
 
