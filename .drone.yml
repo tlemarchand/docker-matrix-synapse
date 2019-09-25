@@ -8,8 +8,9 @@ steps:
   - apt-get update
   - apt-get install -y jq curl
   - curl -s 'https://pypi.org/pypi/matrix-synapse/json' | jq -r '.info.version' > version
-  - echo -n 'latest,v' | cat - version > .tags
-  - echo -n ,build-$DRONE_BUILD_NUMBER >> .tags
+  - echo -n 'latest,' | cat - version > .tags
+  - echo -n ',' | cat - version >> .tags
+  - echo -n -$DRONE_BUILD_NUMBER >> .tags
 
 - name: docker  
   image: plugins/docker
