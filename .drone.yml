@@ -12,7 +12,7 @@ steps:
   - echo -n ',' | cat - version >> .tags
   - echo -n -$DRONE_BUILD_NUMBER >> .tags
 
-- name: docker  
+- name: docker-matrix-synapse
   image: plugins/docker
   settings:
     repo: tlemarchand/matrix-synapse
@@ -21,3 +21,14 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
+
+- name: quay-matrix-synapse
+  image: plugins/docker
+  settings:
+    repo: quay.io/tlemarchand/matrix-synapse
+    target: app
+    username:
+      from_secret: quay_username
+    password:
+      from_secret: quay_password
+    registry: quay.io
