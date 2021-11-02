@@ -1,11 +1,11 @@
-FROM python:3.7-buster as builder
+FROM python:3.9-bullseye as builder
 
 COPY version /tmp/version
 
 RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all]==`cat /tmp/version`
 
 
-FROM python:3.7-slim-buster as app
+FROM python:3.9-slim-bullseye as app
 
 RUN apt-get update && apt-get install -y libpq5 && \
     mkdir /etc/matrix-synapse/ && \
