@@ -1,8 +1,8 @@
 kind: pipeline
 name: default
 
-image_pull_secrets:
-- dockerconfig
+config:
+  from_secret: dockerconfig
 
 steps:
 - name: tag
@@ -14,16 +14,6 @@ steps:
   - echo -n 'latest,' | cat - version > .tags
   - echo -n ',' | cat - version >> .tags
   - echo -n -$DRONE_BUILD_NUMBER >> .tags
-
-# - name: docker-matrix-synapse
-#   image: plugins/docker
-#   settings:
-#     repo: tlemarchand/matrix-synapse
-#     target: app
-#     username:
-#       from_secret: docker_username
-#     password:
-#       from_secret: docker_password
 
 - name: quay-matrix-synapse
   image: plugins/docker
