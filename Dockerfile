@@ -1,4 +1,4 @@
-FROM python:3.9-bullseye as builder
+FROM python:3.11-bullseye as builder
 
 COPY version /tmp/version
 
