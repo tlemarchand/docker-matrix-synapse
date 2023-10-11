@@ -1,11 +1,11 @@
-FROM python:3.11-bullseye as builder
+FROM python:3.11-bookworm as builder
 
 COPY version /tmp/version
 
 RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all]==`cat /tmp/version`
 
 
-FROM python:3.11-slim-bullseye as app
+FROM python:3.11-slim-bookworm as app
 
 RUN apt-get update && apt-get install -y libpq5 libicu67 && \
     mkdir /etc/matrix-synapse/ && \
