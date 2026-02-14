@@ -1,11 +1,11 @@
-FROM python:3.12-bookworm as builder
+FROM python:3.13-trixie as builder
 
 COPY version /tmp/version
 
 RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all]==`cat /tmp/version`
 
 
-FROM python:3.12-slim-bookworm as app
+FROM python:3.13-slim-trixie as app
 
 RUN apt-get update && apt-get install -y libpq5 libicu72 && \
     mkdir /etc/matrix-synapse/ && \
