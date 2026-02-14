@@ -7,7 +7,7 @@ RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[all
 
 FROM python:3.13-slim-trixie as app
 
-RUN apt-get update && apt-get install -y libpq5 libicu72 && \
+RUN apt-get update && apt-get install -y libpq5 libicu76 && \
     mkdir /etc/matrix-synapse/ && \
     groupadd -g 600 -r synapse && useradd --no-log-init -u 600 -r -g synapse synapse && \
     rm -rf /var/lib/apt/lists/*
