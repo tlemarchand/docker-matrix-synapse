@@ -2,7 +2,7 @@ FROM python:3.13-trixie as builder
 
 COPY version /tmp/version
 
-RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[oidc,psycopg2]==`cat /tmp/version`
+RUN pip install --prefix="/install" --no-warn-script-location matrix-synapse[oidc,postgres,cache-memory,jwt]==`cat /tmp/version`
 
 
 FROM python:3.13-slim-trixie as app
